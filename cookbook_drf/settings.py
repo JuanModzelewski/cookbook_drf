@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'recipes',
     'reviews',
     'favorites',
+    'comments',
 ]
 
 MIDDLEWARE = [
