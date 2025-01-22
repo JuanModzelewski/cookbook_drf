@@ -7,7 +7,7 @@ class Favorite(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     recipe = models.ForeignKey(
-        Recipe, related_name='recipes', on_delete=models.CASCADE
+        Recipe, related_name='favorites', on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
 

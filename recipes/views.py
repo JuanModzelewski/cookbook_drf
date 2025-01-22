@@ -1,7 +1,8 @@
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters
 from .models import Recipe
 from .serializers import RecipeSerializer
 from cookbook_drf.permissions import IsOwnerOrReadOnly
+from django.db.models import Count
 
 
 class RecipeList(generics.ListCreateAPIView):
@@ -11,11 +12,12 @@ class RecipeList(generics.ListCreateAPIView):
     """
     serializer_class = RecipeSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    queryset = Recipe.objects.all().order_by('-created_at')
+    queryset = Recipe.objects.annotate(
+        favorite_count=Count('favorites', distinct=True)
+        ).order_by('-created_at')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-
 
 class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     """
@@ -23,4 +25,6 @@ class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     serializer_class = RecipeSerializer
     permission_classes = [IsOwnerOrReadOnly]
-    queryset = Recipe.objects.all().order_by('-created_at')
+    queryset = Recipe.objects.annotate(
+        favorite_count=Count('favorites', distinct=True)
+        ).order_by('-created_at')
