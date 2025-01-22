@@ -21,4 +21,4 @@ class Review(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f'Review by {self.user} on {self.recipe}'
+        return f'Review by {self.owner} on {self.recipe}'

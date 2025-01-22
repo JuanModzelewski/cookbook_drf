@@ -13,6 +13,7 @@ class ReviewSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.profile_image.url')
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
+    recipe_title = serializers.ReadOnlyField(source='recipe.title')
 
     def get_created_at(self, obj):
         return naturaltime(obj.created_at)
@@ -30,7 +31,7 @@ class ReviewSerializer(serializers.ModelSerializer):
             'id', 'owner', 'recipe', 'rating',
             'comment', 'created_at', 'updated_at',
             'is_owner', 'profile_id', 'profile_image',
-            'recipe',
+            'recipe', 'recipe_title',
             ]
         
 class ReviewDetailSerializer(ReviewSerializer):
