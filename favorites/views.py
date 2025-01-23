@@ -5,7 +5,9 @@ from favorites.serializers import FavoriteSerializer
 
 
 class FavoriteList(generics.ListCreateAPIView):
-
+    """
+    List all favorites or create a favorite if logged in.
+    """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = FavoriteSerializer
     queryset = Favorite.objects.all()
@@ -14,7 +16,9 @@ class FavoriteList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 class FavoriteDetail(generics.RetrieveDestroyAPIView):
-
+    """
+    Retrieve a favorite, or delete it if you own it.
+    """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = FavoriteSerializer
     queryset = Favorite.objects.all()

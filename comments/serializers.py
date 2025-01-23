@@ -10,6 +10,7 @@ class CommentSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.profile_image.url')
     recipe_title = serializers.ReadOnlyField(source='review.recipe.title')
     review = serializers.PrimaryKeyRelatedField(queryset=Review.objects.all())
+    review_comment = serializers.SerializerMethodField()
     parent = serializers.PrimaryKeyRelatedField(queryset=Comment.objects.all(), required=False, allow_null=True)
     replies = serializers.SerializerMethodField()
     created_at = serializers.SerializerMethodField()
@@ -25,7 +26,16 @@ class CommentSerializer(serializers.ModelSerializer):
         """
         Returns the time the comment was last updated
         """
-        return naturaltime(obj.created_at)
+        return naturaltime(obj.updated_at)
+    
+    def get_review_comment(self, obj):
+        """
+        Returns the comment associated with the review
+        Only displayed in the parent comment
+        """
+        if obj.parent is None:
+            return obj.review.comment
+        return None
     
     def get_replies(self, obj):
         """
@@ -72,11 +82,6 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = [
             'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
-            'review', 'recipe_title', 'comment', 'created_at',
+            'review', 'recipe_title', 'review_comment', 'comment', 'created_at',
             'updated_at', 'replies', 'parent',
         ]
-
-
-class CommentDetailSerializer(CommentSerializer):
-    review = serializers.ReadOnlyField(source='review.id')
-

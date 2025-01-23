@@ -4,7 +4,6 @@ from recipes.models import Recipe
 
 
 class Favorite(models.Model):
-
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     recipe = models.ForeignKey(
         Recipe, related_name='favorites', on_delete=models.CASCADE

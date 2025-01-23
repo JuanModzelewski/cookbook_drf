@@ -4,7 +4,9 @@ from favorites.models import Favorite
 
 
 class FavoriteSerializer(serializers.ModelSerializer):
-
+    """
+    Serializer for Favorite model
+    """
     owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
