@@ -37,10 +37,10 @@ class RecipeSerializer(serializers.ModelSerializer):
         return request.user == obj.owner
     
     def get_comment_count(self, obj):
-        """
-        Returns the number of comments associated with the recipe
-        """
-        return obj.comment_count
+        if hasattr(obj, 'comment_count'):
+            return obj.comment_count
+        else:
+            return 0
 
     def get_favorite_id(self, obj):
         """
@@ -73,6 +73,6 @@ class RecipeSerializer(serializers.ModelSerializer):
             'profile_image', 'title', 'description',
             'ingredients', 'cooking_instructions',
             'recipe_image', 'created_at', 'updated_at', 
-            'favorite_id', 'favorite_count', 'review_id', 'review_count', 'comment_count'
+            'favorite_id', 'favorite_count', 'review_id', 'review_count', 'comment_count',
         ]
         read_only_fields = ['owner', 'is_owner', 'profile_id', 'profile_image', 'favorite_id', 'review_id']

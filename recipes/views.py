@@ -33,7 +33,11 @@ class RecipeList(generics.ListCreateAPIView):
     search_fields = ['title']
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        try:
+            serializer.save(owner=self.request.user)
+        except Exception as e:
+            print(f"Error creating recipe: {e}")
+            raise
 
 class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     """
