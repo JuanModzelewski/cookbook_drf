@@ -1,4 +1,5 @@
 from rest_framework import generics, permissions, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from .models import Recipe
 from .serializers import RecipeSerializer
 from cookbook_drf.permissions import IsOwnerOrReadOnly
@@ -29,8 +30,14 @@ class RecipeList(generics.ListCreateAPIView):
             )
         ).order_by('-created_at')
     
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['title']
+    filter_backends = [
+        filters.SearchFilter,
+        filters.OrderingFilter,
+        DjangoFilterBackend
+        ]
+    filterset_fields = ['favorites__owner__profile']
+    search_fields = ['title', 'description']
+    ordering_fields = ['favorite_count', 'review_count', 'comment_count']
 
     def perform_create(self, serializer):
         try:
