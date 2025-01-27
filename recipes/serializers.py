@@ -2,6 +2,7 @@ from rest_framework import serializers
 from recipes.models import Recipe
 from favorites.models import Favorite
 from reviews.models import Review
+from django.db.models import Avg
 
 def validate_image(image):
     # Check image size (limit to 2MB)
@@ -26,7 +27,8 @@ class RecipeSerializer(serializers.ModelSerializer):
     favorite_id = serializers.SerializerMethodField()
     favorite_count = serializers.ReadOnlyField()
     review_id = serializers.SerializerMethodField()
-    review_count = serializers.ReadOnlyField()
+    average_rating = serializers.SerializerMethodField()
+    review_count = serializers.SerializerMethodField()
     comment_count = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
@@ -41,6 +43,18 @@ class RecipeSerializer(serializers.ModelSerializer):
             return obj.comment_count
         else:
             return 0
+        
+    def get_average_rating(self, obj):
+        """
+        Returns the average rating of the recipe
+        """
+        return obj.reviews.aggregate(Avg('rating'))['rating__avg'] or 0.0
+
+    def get_review_count(self, obj):
+        """
+        Returns the number of reviews for the recipe
+        """
+        return obj.reviews.count()
 
     def get_favorite_id(self, obj):
         """
@@ -73,6 +87,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             'profile_image', 'title', 'description',
             'ingredients', 'cooking_instructions',
             'recipe_image', 'created_at', 'updated_at', 
-            'favorite_id', 'favorite_count', 'review_id', 'review_count', 'comment_count',
+            'favorite_id', 'favorite_count', 'review_id',
+            'review_count', 'comment_count', 'average_rating',
         ]
         read_only_fields = ['owner', 'is_owner', 'profile_id', 'profile_image', 'favorite_id', 'review_id']
