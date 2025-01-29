@@ -35,7 +35,11 @@ class RecipeList(generics.ListCreateAPIView):
         filters.OrderingFilter,
         DjangoFilterBackend
         ]
-    filterset_fields = ['favorites__owner__profile']
+    filterset_fields = [
+        'favorites__owner__profile',
+        'reviews__owner__profile',
+        'owner__profile',
+        ]
     search_fields = ['title', 'description']
     ordering_fields = ['favorite_count', 'review_count', 'comment_count']
 
