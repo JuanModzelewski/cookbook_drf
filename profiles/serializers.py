@@ -8,11 +8,14 @@ class ProfileSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     # provides a count of recipes belonging to the profile
-    recipes_count = serializers.ReadOnlyField()
+    recipes_count = serializers.SerializerMethodField()
 
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
+    
+    def get_recipes_count(self, obj):
+        return obj.recipes.count() 
 
     class Meta:
         model = Profile
