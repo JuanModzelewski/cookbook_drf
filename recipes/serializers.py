@@ -25,7 +25,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     profile_image = serializers.ReadOnlyField(source='owner.profile.profile_image.url')
     recipe_image = serializers.ImageField(validators=[validate_image], required=False)
     favorite_id = serializers.SerializerMethodField()
-    favorite_count = serializers.ReadOnlyField()
+    favorite_count = serializers.SerializerMethodField()
     review_id = serializers.SerializerMethodField()
     average_rating = serializers.SerializerMethodField()
     review_count = serializers.SerializerMethodField()
@@ -67,6 +67,12 @@ class RecipeSerializer(serializers.ModelSerializer):
             favorites = Favorite.objects.filter(owner=user, recipe=obj).first()
             return favorites.id if favorites else None
         return None
+    
+    def get_favorite_count(self, obj):
+        """
+        Returns the number of favorites for the recipe
+        """
+        return obj.favorites.count()
     
     def get_review_id(self, obj):
         """
