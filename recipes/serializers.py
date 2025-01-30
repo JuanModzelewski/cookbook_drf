@@ -22,7 +22,7 @@ class RecipeSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
-    profile_image = serializers.ReadOnlyField(source='owner.profile.profile_image.url')
+    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     recipe_image = serializers.ImageField(validators=[validate_image], required=False)
     favorite_id = serializers.SerializerMethodField()
     favorite_count = serializers.SerializerMethodField()
