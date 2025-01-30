@@ -10,7 +10,7 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     name = models.CharField(max_length=255, blank=True)
     content = models.TextField(blank=True)
-    image = models.ImageField(
+    profile_image = models.ImageField(
         upload_to='images/',
         storage=MediaCloudinaryStorage(),
         default='../default_profile_miggsa',
