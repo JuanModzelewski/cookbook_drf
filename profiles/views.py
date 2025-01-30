@@ -9,6 +9,7 @@ class ProfileList(generics.ListAPIView):
     List all profiles.
     No create view as profile creation is handled by django signals.
     """
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Profile.objects.annotate(
         recipes_count=Count('owner__recipe', distinct=True),
     ).order_by('-created_at')
