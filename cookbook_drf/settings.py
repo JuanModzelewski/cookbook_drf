@@ -56,7 +56,9 @@ if 'CLIENT_ORIGIN' in os.environ:
 
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     CORS_ALLOWED_ORIGIN_REGEXES = [
-         'http://192.168.50.198:3000',
+         'http://localhost:5173',
+         'http://127.0.0.1:5173',
+         'http://localhost:5000',
          'http://localhost:3000',
 
     ]
