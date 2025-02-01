@@ -47,18 +47,12 @@ if 'CLIENT_ORIGIN' in os.environ:
     CORS_ALLOWED_ORIGINS = [
         os.environ.get('CLIENT_ORIGIN'),
         # final deployed website
-        'http://localhost:5173',
-        'http://127.0.0.1:5173',
-        'http://localhost:5000',
-        'http://localhost:3000',
 
     ]
 
 if 'CLIENT_ORIGIN_DEV' in os.environ:
     CORS_ALLOWED_ORIGIN_REGEXES = [
-         'http://localhost:5173',
-         'http://127.0.0.1:5173',
-         'http://localhost:5000',
+         'http://192.168.50.198:3000',
          'http://localhost:3000',
 
     ]
