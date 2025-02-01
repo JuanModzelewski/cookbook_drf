@@ -7,7 +7,7 @@ class CommentSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     is_owner = serializers.SerializerMethodField()
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
-    profile_image = serializers.ReadOnlyField(source='owner.profile.profile_image.url')
+    profile_image = serializers.ReadOnlyField(source='owner.profile.image.url')
     recipe_title = serializers.ReadOnlyField(source='review.recipe.title')
     review = serializers.PrimaryKeyRelatedField(queryset=Review.objects.all())
     review_comment = serializers.SerializerMethodField()
