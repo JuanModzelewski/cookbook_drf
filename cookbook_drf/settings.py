@@ -110,19 +110,14 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%d %b %Y',
 }
 
-# Enable JWT authentication
-REST_USE_JWT = True
-# Ensure JWT authentication occurs over HTTPS
-JWT_AUTH_SECURE = True
-# Name access token
-JWT_AUTH_COOKIE = 'my-app-auth'
-# Name refresh token
-JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
-JWT_AUTH_SAMESITE = 'None'
-
-# Specify custom user details serializer
-REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'cookbook_drf.serializers.CurrentUserSerializer'
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_SECURE': True,
+    'JWT_AUTH_HTTPONLY': False,
+    'JWT_AUTH_COOKIE': 'my-app-auth',
+    'JWT_AUTH_REFRESH_COOKIE': 'my-refresh-token',
+    'JWT_AUTH_SAMESITE': 'None',
+    'USER_DETAILS_SERIALIZER': 'cookbook_drf.serializers.CurrentUserSerializer',
 }
 
 
