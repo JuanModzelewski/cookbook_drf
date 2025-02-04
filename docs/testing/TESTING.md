@@ -41,7 +41,7 @@ Images from the deployed api and the admin django panel can be found [here](#dep
 | DELETE Unauthenticated                                                       | delete not present                                                                                           | ✅ PASS     |
 | POST                                                                         | delete not present                                                                                           | ✅ PASS     |
 | **Favorites**                                                                 |                                                                                                            |             |
-| [Recipe List](https://cookbook-drf-api-f6a1e9bf2c65.herokuapp.com/favorites/)|                                                                                                             |             |
+| [Favorites](https://cookbook-drf-api-f6a1e9bf2c65.herokuapp.com/favorites/)|                                                                                                             |             |
 | GET Unauthenticated                                                          | returns a list of favorite id, owner, created_at, and recipe                                                | ✅ PASS     |
 | GET Authenticated                                                            | returns a list of favorite id, owner, created_at, and recipe                                                | ✅ PASS     |
 | POST Unauthenticated                                                         | form to add to favorites not present                                                                       | ✅ PASS     |

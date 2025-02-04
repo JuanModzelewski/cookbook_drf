@@ -118,7 +118,6 @@ REST_AUTH = {
     'USER_DETAILS_SERIALIZER': 'cookbook_drf.serializers.CurrentUserSerializer',
 }
 
-
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
