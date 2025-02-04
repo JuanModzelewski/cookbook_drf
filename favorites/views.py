@@ -15,6 +15,7 @@ class FavoriteList(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
 class FavoriteDetail(generics.RetrieveDestroyAPIView):
     """
     Retrieve a favorite, or delete it if you own it.
@@ -22,4 +23,3 @@ class FavoriteDetail(generics.RetrieveDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = FavoriteSerializer
     queryset = Favorite.objects.all()
-   

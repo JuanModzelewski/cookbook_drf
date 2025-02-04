@@ -17,9 +17,10 @@ class CommentList(generics.ListCreateAPIView):
         Adds the request to the serializer context for use in validation.
         """
         return {'request': self.request}
-    
+
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     """

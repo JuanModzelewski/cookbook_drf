@@ -16,20 +16,19 @@ class RecipeList(generics.ListCreateAPIView):
     queryset = Recipe.objects.annotate(
         favorite_count=Count('favorites', distinct=True),
         review_count=Count('reviews', distinct=True),
+        # filter out recipes with no initial
+        # comments using Q (query object)
+        # filter out empty comments using ~ (negation)
+        # filter out parent comments
+        # separates review comments from star rating
         comment_count=Count(
-            
-            # filter out recipes with no initial comments using Q (query object)
-            # filter out empty comments using ~ (negation)
-            # filter out parent comments
-            # separates review comments from star rating
-            
                 'reviews__comments',
                 filter=Q(reviews__comments__comment__isnull=False)
                 & ~Q(reviews__comments__comment='')
                 & Q(reviews__comments__parent__isnull=True)
             )
         ).order_by('-created_at')
-    
+
     filter_backends = [
         filters.SearchFilter,
         filters.OrderingFilter,
@@ -49,6 +48,7 @@ class RecipeList(generics.ListCreateAPIView):
         except Exception as e:
             print(f"Error creating recipe: {e}")
             raise
+
 
 class RecipeDetail(generics.RetrieveUpdateDestroyAPIView):
     """
