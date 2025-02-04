@@ -22,3 +22,4 @@ class FavoriteDetail(generics.RetrieveDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = FavoriteSerializer
     queryset = Favorite.objects.all()
+   
