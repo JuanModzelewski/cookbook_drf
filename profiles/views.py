@@ -28,5 +28,4 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
         recipes_count=Count('owner__recipe', distinct=True),
     ).order_by('-created_at')
     serializer_class = ProfileSerializer
-    serializer_class = ProfileSerializer
     
