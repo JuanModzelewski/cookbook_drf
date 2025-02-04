@@ -27,8 +27,4 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
         recipes_count=Count('owner__recipe', distinct=True),
     ).order_by('-created_at')
     serializer_class = ProfileSerializer
-<<<<<<< HEAD
     
-=======
-    serializer_class = ProfileSerializer
->>>>>>> parent of e77625f (Code change according to CI Python Linter)
