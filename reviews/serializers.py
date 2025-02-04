@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import Review
 from django.contrib.humanize.templatetags.humanize import naturaltime
 
-
 class ReviewSerializer(serializers.ModelSerializer):
     """
     Serializer for Review model.
@@ -27,14 +26,14 @@ class ReviewSerializer(serializers.ModelSerializer):
         Returns the time the review was last updated in a human-readable format
         """
         return naturaltime(obj.updated_at)
-
+    
     def get_is_owner(self, obj):
         """
         Returns True if the user is the owner of the review
         """
         request = self.context['request']
         return request.user == obj.owner
-
+    
     def create(self, validated_data):
         """
         Creates a new review and saves it to the database.
@@ -46,8 +45,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
         # Check if the user has already reviewed this recipe
         if Review.objects.filter(owner=user, recipe=recipe).exists():
-            raise serializers.ValidationError(
-                "You have already reviewed this recipe.")
+            raise serializers.ValidationError("You have already reviewed this recipe.")
 
         review = Review(
             owner=user,
@@ -61,12 +59,10 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = [
-            'id', 'owner', 'is_owner', 'profile_id',
-            'profile_image', 'recipe', 'recipe_title',
-            'rating', 'comment', 'created_at', 'updated_at',
+            'id', 'owner', 'is_owner', 'profile_id', 'profile_image',
+            'recipe', 'recipe_title', 'rating', 'comment', 'created_at', 'updated_at',
             ]
-
-
+        
 class ReviewDetailSerializer(ReviewSerializer):
     """
     Serializer for a detailed view of a review.

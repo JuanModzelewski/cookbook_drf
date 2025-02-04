@@ -2,7 +2,6 @@ from rest_framework import serializers
 from .models import Profile
 from recipes.models import Recipe
 
-
 class ProfileSerializer(serializers.ModelSerializer):
     """
     Serializer for the Profile model
@@ -15,7 +14,7 @@ class ProfileSerializer(serializers.ModelSerializer):
     def get_is_owner(self, obj):
         request = self.context['request']
         return request.user == obj.owner
-
+    
     def get_recipes_count(self, obj):
         return Recipe.objects.filter(owner=obj.owner).count()
 

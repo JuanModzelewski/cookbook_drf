@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary_storage.storage import MediaCloudinaryStorage
 
-
 class Recipe(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()

@@ -4,7 +4,6 @@ from .serializers import ReviewSerializer, ReviewDetailSerializer
 from cookbook_drf.permissions import IsOwnerOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 
-
 class ReviewListCreateView(generics.ListCreateAPIView):
     """
     List all reviews or create a review if logged in.
@@ -17,7 +16,6 @@ class ReviewListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-
 
 class ReviewDetailView(generics.RetrieveUpdateDestroyAPIView):
     """

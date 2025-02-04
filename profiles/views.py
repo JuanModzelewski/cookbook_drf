@@ -4,7 +4,6 @@ from cookbook_drf.permissions import IsOwnerOrReadOnly
 from .models import Profile
 from .serializers import ProfileSerializer
 
-
 class ProfileList(generics.ListAPIView):
     """
     List all profiles.
@@ -15,9 +14,9 @@ class ProfileList(generics.ListAPIView):
         recipes_count=Count('owner__recipe', distinct=True),
     ).order_by('-created_at')
     serializer_class = ProfileSerializer
+    
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['recipes_count']
-
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     """
@@ -28,4 +27,8 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
         recipes_count=Count('owner__recipe', distinct=True),
     ).order_by('-created_at')
     serializer_class = ProfileSerializer
+<<<<<<< HEAD
     
+=======
+    serializer_class = ProfileSerializer
+>>>>>>> parent of e77625f (Code change according to CI Python Linter)
